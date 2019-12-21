@@ -14,7 +14,7 @@ const ContainerProduto = styled.div`
 
 const ImgProduto = styled.img`
     width: 100%;
-    height: 200px;
+    height: 220px;
     margin: 0 0 5px 0;
 `
 
@@ -27,13 +27,15 @@ const StyledButton = styled(Button)`
     width: 100%;
 `
 
-function ComponenteProduto() {
+function ComponenteProduto(props) {
+    const precoProduto = props.dadoProduto.preco.toFixed(2)
+    const valorDaParcela = (props.dadoProduto.preco / props.dadoProduto.parcelas).toFixed(2)
     return (
         <ContainerProduto>
-            <ImgProduto src="https://picsum.photos/600" />
-            <TextoProduto>Nome Produto</TextoProduto>
-            <TextoProduto>Preço: R$</TextoProduto>
-            <TextoProduto>10x R$00,00 sem juros</TextoProduto>
+            <ImgProduto src={props.dadoProduto.foto} />
+            <TextoProduto>{props.dadoProduto.nome}</TextoProduto>
+            <TextoProduto>Preço: R${precoProduto}</TextoProduto>
+            <TextoProduto>{props.dadoProduto.parcelas}x R${valorDaParcela} sem juros</TextoProduto>
             <StyledButton variant="contained" color="default">
                 Adicionar ao carrinho
                 <ShoppingCartIcon />
