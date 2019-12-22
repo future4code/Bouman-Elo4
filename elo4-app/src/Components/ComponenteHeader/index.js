@@ -14,6 +14,9 @@ const carrinhoTheme = createMuiTheme({
   }
 })
 
+
+
+
 const HeaderElo = styled.div`
   background-color: #B4F1F3;
   padding: 10px;
@@ -93,6 +96,7 @@ function ComponenteHeader(props) {
     case 'consumidorPage':
       exibicao = 
         <HeaderItems>
+
             <MuiThemeProvider theme={carrinhoTheme}>
               <StyledBadge badgeContent={4} color="primary">
                 <StyledShoppingIcon />
@@ -101,6 +105,7 @@ function ComponenteHeader(props) {
           <StyledButton size="large" variant="contained" color="primary" onClick={voltarParaHome}>
             Home
           </StyledButton>
+
         </HeaderItems>
       break;
   
