@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import Styled from '../../Style.css'
 
 const MainContainer =styled.div`
     margin:30px;
@@ -14,6 +14,7 @@ const MainContainer =styled.div`
     border: solid gray 1px;
     border-radius: 10px;
     width:100%;
+    background-color:#B4F1F3;
 `;
 
 const metodoPagamento = [
