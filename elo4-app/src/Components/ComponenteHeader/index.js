@@ -3,8 +3,16 @@ import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import styled from 'styled-components';
-import logo from '../../img/elo4_logo.png'
-import Styled from '../../Style.css'
+import logo from '../../img/elo4_logo.png';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+
+const carrinhoTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#f29711'
+    },
+  }
+})
 
 const HeaderElo = styled.div`
   background-color: #B4F1F3;
@@ -85,9 +93,11 @@ function ComponenteHeader(props) {
     case 'consumidorPage':
       exibicao = 
         <HeaderItems>
-          <StyledBadge badgeContent={4} color="default">
-            <StyledShoppingIcon />
-          </StyledBadge>
+            <MuiThemeProvider theme={carrinhoTheme}>
+              <StyledBadge badgeContent={4} color="primary">
+                <StyledShoppingIcon />
+              </StyledBadge>
+            </MuiThemeProvider>
           <StyledButton size="large" variant="contained" color="primary" onClick={voltarParaHome}>
             Home
           </StyledButton>
