@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Styled from '../../Style.css'
+import Button from '@material-ui/core/Button';
+import 'typeface-roboto';
 
 const MainContainer =styled.div`
     margin:30px;
@@ -16,6 +18,19 @@ const MainContainer =styled.div`
     width:100%;
     background-color:#B4F1F3;
 `;
+
+const StyledButtonFornecedor = styled(Button)`
+   &&{
+    position:absolute;
+    bottom:50px;
+    right:50px;
+    margin-left: 2000px;
+    color: white;
+    background-color: #f29711;
+    margin-left:10px;
+
+   } `;
+
 
 const metodoPagamento = [
     {
@@ -114,6 +129,8 @@ const metodoPagamento = [
             placeholder="Insira aqui"
             id="margin-none"
           />
+
+        <StyledButtonFornecedor>Cadastrar Produto</StyledButtonFornecedor>
       </MainContainer>
     );
   }

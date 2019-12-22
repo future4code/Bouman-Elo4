@@ -6,6 +6,9 @@ import styled from 'styled-components';
 import logo from '../../img/elo4_logo.png'
 import Styled from '../../Style.css'
 
+
+
+
 const HeaderElo = styled.div`
   background-color: #B4F1F3;
   padding: 10px;
@@ -85,12 +88,16 @@ function ComponenteHeader(props) {
     case 'consumidorPage':
       exibicao = 
         <HeaderItems>
-          <StyledBadge badgeContent={4} color="default">
-            <StyledShoppingIcon />
-          </StyledBadge>
-          <StyledButton size="large" variant="contained" color="primary" onClick={voltarParaHome}>
-            Home
-          </StyledButton>
+          
+            <StyledBadge badgeContent={4} color="default">
+              <StyledShoppingIcon />
+            </StyledBadge>
+            
+            <StyledButton size="large" variant="contained" color="primary" onClick={voltarParaHome}>
+              Home
+            </StyledButton>
+          
+          
         </HeaderItems>
       break;
   
