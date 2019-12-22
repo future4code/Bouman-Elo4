@@ -4,22 +4,31 @@ import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import 'typeface-roboto';
 
+
 const MainContainer = styled.div`
-	display: flex;
-	align-items:center;
-	justify-content:center;
-    height:175px;
+    width:100%;
+    height:stretch;
+    background-color:#5ce1e6;
    
 `;
 
 const SubContainer =styled.div`
-    margin-left:10px;
+   display: flex;
+	align-items:center;
+	justify-content:center;
+    background-color:#5ce1e6;
+    margin:100px;
 `;
 
 const StyledButtonFornecedor = styled(Button)`
+   &&{
     margin-left: 2000px;
-    color: red;
-    background-color: black;
+    color: white;
+    background-color: #f29711;
+    margin-left:10px;
+
+   } 
+    
 `;
 /* const StyledButtonConsumidor = styled(Button)`
     margin-left:20px;
@@ -54,11 +63,9 @@ render(){
         return(
             <MainContainer>
                 <SubContainer>
-                    <StyledButtonFornecedor  variant="contained" color="primary"   onClick={this.handleFuncaoFilhoFornecedor}>Fornecedor</StyledButtonFornecedor>
-                </SubContainer>
-                <SubContainer>
+                    <StyledButtonFornecedor  variant="contained" color="primary"   onClick={this.handleFuncaoFilhoFornecedor}>Fornecedor</StyledButtonFornecedor>  
                     <StyledButtonFornecedor variant="contained" color="primary" onClick={this.handleFuncaoFilhoConsumidor}>Consumidor</StyledButtonFornecedor>
-                </SubContainer>
+                </SubContainer>  
             </MainContainer>
         )
     }
