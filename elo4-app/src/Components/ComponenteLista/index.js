@@ -85,13 +85,12 @@ const listaDeProdutos = [
     },
 ]
 
-function ComponenteLista() {
+function ComponenteLista(props) {
     return (
         <MainContainer>
             <ComponenteSort />
             <ContainerLista>
-                { listaDeProdutos.map((produto) => {
-                    console.log(produto)
+                { props.listaProdutos.map((produto) => {
                     return (<ComponenteProduto dadoProduto={produto} />)
                 })}
             </ContainerLista>
