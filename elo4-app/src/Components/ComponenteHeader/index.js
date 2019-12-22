@@ -20,10 +20,18 @@ const LogoElo = styled.img`
 
 const HeaderItems = styled.div`
   padding: 10px;
-  width: 180px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+`
+
+const HeaderText = styled.div`
+  width: 85%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100px;
 `
 
 const StyledShoppingIcon = styled(ShoppingCartIcon)`
@@ -42,23 +50,57 @@ const StyledBadge = styled(Badge)`
 const StyledButton =styled(Button)`
 && {
   background-color: #f29711;
+  margin-left: 50px;
 }
 `;
 
-function ComponenteHeader() {
-    return (
-        <HeaderElo>
-            <LogoElo src={logo} />
-            <HeaderItems>
-                <StyledBadge badgeContent={4} color="default">
-                    <StyledShoppingIcon />
-                </StyledBadge>
-                <StyledButton size="large" variant="contained" color="primary">
-                    Home
-                </StyledButton>
-            </HeaderItems>
-        </HeaderElo>
-    )
+function ComponenteHeader(props) {
+
+  const voltarParaHome = () =>{
+    props.transportePage("")
+  }
+
+  let exibicao
+  switch (props.actualPage) {
+    case "":
+      exibicao = 
+        <HeaderText>
+          <h1>Bem-vind@!</h1>
+          <h5>Escolha uma opção para começar</h5>
+        </HeaderText>
+      break;
+
+    case 'fornecedorPage':
+      exibicao = 
+        <HeaderItems>
+          <StyledButton size="large" variant="contained" color="primary" onClick={voltarParaHome}>
+            Home
+          </StyledButton>
+        </HeaderItems>
+      break;
+
+    case 'consumidorPage':
+      exibicao = 
+        <HeaderItems>
+          <StyledBadge badgeContent={4} color="default">
+            <StyledShoppingIcon />
+          </StyledBadge>
+          <StyledButton size="large" variant="contained" color="primary" onClick={voltarParaHome}>
+            Home
+          </StyledButton>
+        </HeaderItems>
+      break;
+  
+    default:
+      break;
+  }
+
+  return (
+      <HeaderElo>
+          <LogoElo src={logo} />
+          {exibicao}
+      </HeaderElo>
+  )
 }
 
 export default ComponenteHeader;

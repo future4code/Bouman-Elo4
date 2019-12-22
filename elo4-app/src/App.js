@@ -6,7 +6,8 @@ import ComponenteLista from './Components/ComponenteLista'
 import ComponenteCarrinho from './Components/ComponenteCarrinho/index.js'
 import ComponenteFornecedor from './Components/ComponenteFornecedor/index'
 import 'typeface-roboto';
-import ComponentHeader from './Components/ComponenteHeader/index'
+import ComponenteHeader from './Components/ComponenteHeader/index'
+import './Style.css';
 
 /* paleta de cores: https://coolors.co/f29711-5ce1e6-2e86ab-a23b72-c73e1d */
 
@@ -48,29 +49,28 @@ class App extends React.Component {
 		if (this.state.pageSelector === "") {
 			return(
 				<MainContainer>
-          <ComponentHeader></ComponentHeader>
-          <SubContainer>
-            <ComponentLogin transportePage={this.page}/>
-          </SubContainer>
+					<ComponenteHeader actualPage={this.state.pageSelector} />
+					<SubContainer>
+						<ComponentLogin transportePage={this.page}/>
+					</SubContainer>
 				</MainContainer>
 			)
 		} else if (this.state.pageSelector === "fornecedorPage")  {
 			return (
 				<MainContainer>
-          <ComponentHeader></ComponentHeader>
-          <SubContainer>
-            <ComponenteFornecedor></ComponenteFornecedor>
-          </SubContainer>
+					<ComponenteHeader actualPage={this.state.pageSelector} transportePage={this.page} />
+					<SubContainer>
+						<ComponenteFornecedor></ComponenteFornecedor>
+					</SubContainer>
 				</MainContainer>
 			);
-		
 		} else if (this.state.pageSelector === "consumidorPage") {
 			return (
 				<MainContainer>
-          <ComponentHeader></ComponentHeader>
-          <SubContainer>
-            <ComponenteLista></ComponenteLista>
-          </SubContainer>
+					<ComponenteHeader actualPage={this.state.pageSelector} transportePage={this.page} />
+					<SubContainer>
+						<ComponenteLista></ComponenteLista>
+					</SubContainer>
 				</MainContainer>
 			);
 		} 
