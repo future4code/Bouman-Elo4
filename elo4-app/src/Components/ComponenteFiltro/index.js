@@ -3,14 +3,26 @@ import styled from 'styled-components';
 import 'typeface-roboto';
 import Button from '@material-ui/core/Button';
 
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#f29711'
+    },
+  }
+})
 /* import RangeSlider from '../Slider/slider.js'  */
 
 
 
 const MainContainer =styled.div`
     border: 1px solid #878787;
-    width: 15%;
-    /* width: 400px; */
+    
+    width: 400px;
     border-radius:5px;
     /* height:108vh; */
     margin:5px;
@@ -75,69 +87,132 @@ const FiltroInput = styled.input`
 
 const StyledButton = styled(Button)`
 &&{
+    
     margin:15px 0;
+    
 }
 `;
-
-export default function LayoutTextFields() {
-   
-    
-    return (
-      <MainContainer>
-        <TituloContainer>
-            <TituloTexto>Preço</TituloTexto>
-            <TituloTexto>―</TituloTexto>
-        </TituloContainer>
-            <FiltroContainer>
-                <FiltroInputFalso>
-                <LabelDeInputFalso>De:</LabelDeInputFalso>
-                <LabelCifraInputFalso>R$</LabelCifraInputFalso>
-                <FiltroInput    /* type="number" 
-                                name="valorMin"
-                                value={this.state.formControls.valorMin.value}
-                                onChange={this.controladorInputs} */
-                />
-                </FiltroInputFalso>
-                <FiltroInputFalso>
-                <LabelDeInputFalso>Até:</LabelDeInputFalso>
-                <LabelCifraInputFalso>R$</LabelCifraInputFalso>
-                <FiltroInput    /* type="number" 
-                                name="valorMax"
-                                value={this.state.formControls.valorMax.value}
-                                onChange={this.controladorInputs} */
-                />
-                </FiltroInputFalso>
-               {/*  <RangeSlider  importaValores={this.inputControladoSlider} ></RangeSlider>
-        */} </FiltroContainer>
-
-            <TituloContainer>
-                <TituloTexto>Categoria</TituloTexto>
-                <TituloTexto>―</TituloTexto>
-            </TituloContainer>
-            <FiltroContainer>
-                <StyledButton variant="contained">Categoria 1</StyledButton>
-                <StyledButton variant="contained">Categoria 1</StyledButton>
-                <StyledButton variant="contained">Categoria 1</StyledButton>
-            </FiltroContainer>
+const StyledRadioGroup =styled(RadioGroup)`
+    &&{
+       
+        margin:5px 
+    }
+`;
 
 
+const SubContainer = styled.div`
+    display:flex;
+    justify-content:center;
+`;
 
-            <TituloContainer>
-                <TituloTexto>Buscar</TituloTexto>
-                <TituloTexto>―</TituloTexto>
-            </TituloContainer>
-            <FiltroContainer>
-                <FiltroInputFalso>
-                    <LabelDeInputFalso>Busca:</LabelDeInputFalso>
-                    <FiltroInput    /* type="text" 
-                                    name="filtro"
-                                    value={this.state.formControls.filtro.value}
-                                    onChange={this.controladorInputs} */
-                        />
-                </FiltroInputFalso>
-            </FiltroContainer>
-         
+export default class LayoutTextFields extends React.Component {
+   constructor(props){
+        super(props);
         
-      </MainContainer>
-    );
+        this.state = {
+            inputValorMin:0,
+            inputValorMax:200,
+
+            inputNome:"",
+            inputCategoria:""
+        }
+    }
+
+    //functions
+
+    handleChange = (e) =>{
+
+        const name = e.target.name
+        const value = e.target.value
+        this.setState({
+            [name]:value
+        })
+    }
+
+
+    filtrarFilho = () =>{
+        this.props.filtroDoFilho(this.state.inputValorMin,this.state.inputValorMax,this.state.inputCategoria,this.state.inputNome)
+    }
+    
+    handleChangeCategoria =(e) =>{
+        console.log(e.target.value)
+        this.setState({
+            inputCategoria:e.target.value
+        })
+        
+    }
+
+    render(){
+        return (
+            <MainContainer>
+              <TituloContainer>
+                  <TituloTexto>Preço</TituloTexto>
+                  <TituloTexto>―</TituloTexto>
+              </TituloContainer>
+                  <FiltroContainer>
+                      <FiltroInputFalso>
+                      <LabelDeInputFalso>De:</LabelDeInputFalso>
+                      <LabelCifraInputFalso>R$</LabelCifraInputFalso>
+                      <FiltroInput    type="number" 
+                                      name="inputValorMin"
+                                      value={this.state.inputValorMin}
+                                      onChange={this.handleChange} 
+                      />
+                      </FiltroInputFalso>
+                      <FiltroInputFalso>
+                      <LabelDeInputFalso>Até:</LabelDeInputFalso>
+                      <LabelCifraInputFalso>R$</LabelCifraInputFalso>
+                      <FiltroInput    type="number" 
+                                      name="inputValorMax"
+                                      value={this.state.inputValorMax}
+                                      onChange={this.handleChange} 
+                      />
+                      </FiltroInputFalso>
+                       {/*  <RangeSlider  importaValores={this.inputControladoSlider} ></RangeSlider>
+              */} </FiltroContainer>
+                  
+                   
+      
+                  <TituloContainer>
+                      <TituloTexto>Categoria</TituloTexto>
+                      <TituloTexto>―</TituloTexto>
+                  </TituloContainer>
+                  
+                <MuiThemeProvider theme={theme}>
+                    <StyledRadioGroup aria-label="gender" name="gender1" value={this.inputCategoria} onChange={this.handleChangeCategoria}>
+                        <FormControlLabel value="Artigos para festas" variant="contained" control={<Radio color="primary"/>} label="Artigos para Festas" variant="contained" />
+                        <FormControlLabel value="Objetos de decoração" control={<Radio  color="primary"/>} label="Objetos de Decoração" />
+                        <FormControlLabel value="Bijuterias" control={<Radio color="primary"/>} label="Bijuterias" />
+                        <FormControlLabel value="Produtos religiosos" control={<Radio color="primary"/>} label="Produtos religiosos" />
+                        <FormControlLabel value="Enxovais" control={<Radio color="primary"/>} label="Enxovais" />
+                        <FormControlLabel value="Acessórios eco-friendly" control={<Radio color="primary"/>} label="Acessórios eco-friendly" />
+                        <FormControlLabel value="todos" control={<Radio color="primary"/>} label="Todas Categorias" />
+                    </StyledRadioGroup>
+                </MuiThemeProvider>    
+                
+                  <TituloContainer>
+                      <TituloTexto>Buscar</TituloTexto>
+                      <TituloTexto>―</TituloTexto>
+                  </TituloContainer>
+                  <FiltroContainer>
+                      <FiltroInputFalso>
+                          <LabelDeInputFalso>Busca:</LabelDeInputFalso>
+                          <FiltroInput    type="text" 
+                                          name="inputNome"
+                                          value={this.state.inputNome}
+                                          onChange={this.handleChange} 
+                              />
+                      </FiltroInputFalso>
+                  </FiltroContainer>
+                  <MuiThemeProvider theme={theme}>
+                    <SubContainer>
+                        <StyledButton onClick={this.filtrarFilho} variant="contained" color="primary">Filtrar</StyledButton>
+                    </SubContainer>
+                  </MuiThemeProvider>
+                  
+              
+            </MainContainer>
+          );
+    }
+    
   }
