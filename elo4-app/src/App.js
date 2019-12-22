@@ -47,6 +47,7 @@ class App extends React.Component {
 		this.state = {
 			pageSelector: "", //"fornecedorPage"  //consumidorPage
 			mostraCarrinho: false,
+			arrayProdutos: [],
 		}
 	}
 
@@ -55,6 +56,9 @@ class App extends React.Component {
 		this.setState({
 			pageSelector: page
 		})
+		if (page === 'consumidorPage') {
+			this.pegarArrayProdutos()
+		}
 		
 	}
 
@@ -62,6 +66,16 @@ class App extends React.Component {
 		const novoEstado = !this.state.mostraCarrinho
 		this.setState({ mostraCarrinho: novoEstado})
 	}
+
+	pegarArrayProdutos = async () => {
+		const novoArr = await axios.get('https://us-central1-future-apis.cloudfunctions.net/elo4/products')
+		this.setState({ arrayProdutos: novoArr.data.products })
+		console.log(this.state.arrayProdutos)
+	}
+
+	// componentDidMount() {
+	// 	this.pegarArrayProdutos()
+	// }
 
 	/* renders */
 
@@ -96,7 +110,7 @@ class App extends React.Component {
 					/>
 					<SubContainerConsumidor>
 						<ComponenteFiltro />
-						<ComponenteLista />
+						<ComponenteLista listaProdutos={this.state.arrayProdutos} />
 						{this.state.mostraCarrinho && <ComponenteCarrinho />}
 					</SubContainerConsumidor>
 				</MainContainer>
