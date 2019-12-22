@@ -24,35 +24,35 @@ const MainContainer = styled.div`
  */
 
 const listaDeProdutos = [
-    {
-        nome: 'Lembrancinha',
-        descricao: 'Lembrancinha para festa, kit com 10 unidades',
-        preco: 10.50,
-        pagamento: 'cartão',
-        categoria: 'artigos para festas',
-        foto: 'https://i.pinimg.com/originals/41/51/10/41511002494b83ba4508e73652ca5e0b.jpg',
-        parcelas: 2,
-    },
+    // {
+    //     nome: 'Lembrancinha',
+    //     descricao: 'Lembrancinha para festa, kit com 10 unidades',
+    //     preco: 10.50,
+    //     pagamento: 'cartão',
+    //     categoria: 'artigos para festas',
+    //     foto: 'https://i.pinimg.com/originals/41/51/10/41511002494b83ba4508e73652ca5e0b.jpg',
+    //     parcelas: 2,
+    // },
     
-    {
-        nome: 'Vaso para flores',
-        descricao: 'Vaso para flores, 1 unidade',
-        preco: 12.00,
-        pagamento: 'boleto, cartão',
-        categoria: 'objetos de decoração',
-        foto: 'http://itideias.com.br/wp-content/uploads/2014/11/00_proc1-711x460.jpg',
-        parcelas: 1,
-    },
+    // {
+    //     nome: 'Vaso para flores',
+    //     descricao: 'Vaso para flores, 1 unidade',
+    //     preco: 12.00,
+    //     pagamento: 'boleto, cartão',
+    //     categoria: 'objetos de decoração',
+    //     foto: 'http://itideias.com.br/wp-content/uploads/2014/11/00_proc1-711x460.jpg',
+    //     parcelas: 1,
+    // },
     
-    {
-        nome: 'Colar amarelo',
-        descricao: 'Colar amarelo com flor de feltro, 1 unidade',
-        preco: 24.00,
-        pagamento: 'boleto, cartão',
-        categoria: 'bijuterias',
-        foto: 'https://reciclatobijouterias.files.wordpress.com/2011/03/dsc00784.jpg',
-        parcelas: 3,
-    },
+    // {
+    //     nome: 'Colar amarelo',
+    //     descricao: 'Colar amarelo com flor de feltro, 1 unidade',
+    //     preco: 24.00,
+    //     pagamento: 'boleto, cartão',
+    //     categoria: 'bijuterias',
+    //     foto: 'https://reciclatobijouterias.files.wordpress.com/2011/03/dsc00784.jpg',
+    //     parcelas: 3,
+    // },
     
     {
         nome: 'Anjinhos de pérolas',
