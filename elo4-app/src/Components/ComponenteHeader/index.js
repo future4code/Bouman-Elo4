@@ -14,9 +14,6 @@ const carrinhoTheme = createMuiTheme({
   }
 })
 
-
-
-
 const HeaderElo = styled.div`
   background-color: #B4F1F3;
   padding: 10px;
@@ -37,15 +34,6 @@ const HeaderItems = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-`
-
-const HeaderText = styled.div`
-  width: 85%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 100px;
 `
 
 const StyledShoppingIcon = styled(ShoppingCartIcon)`
@@ -74,16 +62,12 @@ function ComponenteHeader(props) {
     props.transportePage("")
   }
 
+  const paraExibirCarrinho = () => {
+    props.exibirCarrinho()
+  }
+
   let exibicao
   switch (props.actualPage) {
-    case "":
-      exibicao = 
-        <HeaderText>
-          <h1>Bem-vind@!</h1>
-          <h5>Escolha uma opção para começar</h5>
-        </HeaderText>
-      break;
-
     case 'fornecedorPage':
       exibicao = 
         <HeaderItems>
@@ -99,7 +83,7 @@ function ComponenteHeader(props) {
 
             <MuiThemeProvider theme={carrinhoTheme}>
               <StyledBadge badgeContent={4} color="primary">
-                <StyledShoppingIcon />
+                <StyledShoppingIcon onClick={paraExibirCarrinho} />
               </StyledBadge>
             </MuiThemeProvider>
           <StyledButton size="large" variant="contained" color="primary" onClick={voltarParaHome}>

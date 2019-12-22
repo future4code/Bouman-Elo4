@@ -7,6 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 const ContainerItem = styled.div`
     border-bottom: 1px dotted black;
     width: 100%;
+    padding: 2px;
 `
 
 const DadosItem = styled.div`
@@ -17,7 +18,7 @@ const DadosItem = styled.div`
 const ContainerQuantidade = styled.div`
     display: flex;
     align-items: center;
-    margin-right: 40px;
+    margin-right: 20px;
 `
 
 const InputQuantidade = styled.input`
@@ -72,7 +73,7 @@ class ComponenteItemCarrinho extends React.Component {
                         />
                         <AddCircle onClick={this.aumentarInputQuantidade} />
                     </ContainerQuantidade>
-                    <p>R$ 00.00</p>
+                    <p>R$00.00</p>
                 </DadosItem>
             </ContainerItem>
         )
