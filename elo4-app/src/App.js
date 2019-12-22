@@ -3,17 +3,15 @@ import styled from 'styled-components'
 import axios from 'axios'
 import ComponentLogin from './Components/ComponenteLogin/Index'
 import ComponenteLista from './Components/ComponenteLista'
-
+import 'typeface-roboto';
 /* paleta de cores: https://coolors.co/f29711-5ce1e6-2e86ab-a23b72-c73e1d */
 
 
-import 'typeface-roboto';
 
 const MainContainer = styled.div`
 	display: flex;
 	align-items:center;
 	justify-content:center;
-    height:175px;
 `;
 
 class App extends React.Component {
@@ -53,10 +51,7 @@ class App extends React.Component {
 		} else if (this.state.pageSelector === "consumidorPage") {
 			return (
 				<MainContainer>
-					consumidor
-					{/* colocar componentes que envolvem o consumidor, 
-					acredito que seja o caso de criar um componente
-					que envolva todos, talvez. */}
+					<ComponenteLista></ComponenteLista>
 				</MainContainer>
 			);
 		} 
