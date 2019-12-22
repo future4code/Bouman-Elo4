@@ -2,14 +2,20 @@ import React from 'react';
 import BackImage from '../../img/background_img.jpg';
 import styled from 'styled-components';
 import ComponenteProduto from '../ComponenteProduto/index.js'
+import ComponenteSort from '../ComponenteSort/index'
 
 const ContainerLista = styled.div`
-  background-image: url(${BackImage}) ;
-  /* opacity: 50%; */
   display: grid;
   grid-template: auto / repeat(4, 1fr);
   grid-gap: 10px;
   padding: 10px;
+`
+
+const MainContainer = styled.div`
+  background-image: url(${BackImage});
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 /**
@@ -80,12 +86,15 @@ const listaDeProdutos = [
 
 function ComponenteLista() {
     return (
-        <ContainerLista>
-            { listaDeProdutos.map((produto) => {
-                console.log(produto)
-                return (<ComponenteProduto dadoProduto={produto} />)
-            })}
-        </ContainerLista>
+        <MainContainer>
+            <ComponenteSort />
+            <ContainerLista>
+                { listaDeProdutos.map((produto) => {
+                    console.log(produto)
+                    return (<ComponenteProduto dadoProduto={produto} />)
+                })}
+            </ContainerLista>
+        </MainContainer>
     )
 }
 
