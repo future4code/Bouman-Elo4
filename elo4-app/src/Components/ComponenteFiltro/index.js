@@ -75,69 +75,108 @@ const FiltroInput = styled.input`
 
 const StyledButton = styled(Button)`
 &&{
+    
     margin:15px 0;
+    
 }
 `;
+const SubContainer = styled.div`
+    display:flex;
+    justify-content:center;
+`;
 
-export default function LayoutTextFields() {
-   
-    
-    return (
-      <MainContainer>
-        <TituloContainer>
-            <TituloTexto>Preço</TituloTexto>
-            <TituloTexto>―</TituloTexto>
-        </TituloContainer>
-            <FiltroContainer>
-                <FiltroInputFalso>
-                <LabelDeInputFalso>De:</LabelDeInputFalso>
-                <LabelCifraInputFalso>R$</LabelCifraInputFalso>
-                <FiltroInput    /* type="number" 
-                                name="valorMin"
-                                value={this.state.formControls.valorMin.value}
-                                onChange={this.controladorInputs} */
-                />
-                </FiltroInputFalso>
-                <FiltroInputFalso>
-                <LabelDeInputFalso>Até:</LabelDeInputFalso>
-                <LabelCifraInputFalso>R$</LabelCifraInputFalso>
-                <FiltroInput    /* type="number" 
-                                name="valorMax"
-                                value={this.state.formControls.valorMax.value}
-                                onChange={this.controladorInputs} */
-                />
-                </FiltroInputFalso>
-               {/*  <RangeSlider  importaValores={this.inputControladoSlider} ></RangeSlider>
-        */} </FiltroContainer>
-
-            <TituloContainer>
-                <TituloTexto>Categoria</TituloTexto>
-                <TituloTexto>―</TituloTexto>
-            </TituloContainer>
-            <FiltroContainer>
-                <StyledButton variant="contained">Categoria 1</StyledButton>
-                <StyledButton variant="contained">Categoria 1</StyledButton>
-                <StyledButton variant="contained">Categoria 1</StyledButton>
-            </FiltroContainer>
-
-
-
-            <TituloContainer>
-                <TituloTexto>Buscar</TituloTexto>
-                <TituloTexto>―</TituloTexto>
-            </TituloContainer>
-            <FiltroContainer>
-                <FiltroInputFalso>
-                    <LabelDeInputFalso>Busca:</LabelDeInputFalso>
-                    <FiltroInput    /* type="text" 
-                                    name="filtro"
-                                    value={this.state.formControls.filtro.value}
-                                    onChange={this.controladorInputs} */
-                        />
-                </FiltroInputFalso>
-            </FiltroContainer>
-         
+export default class LayoutTextFields extends React.Component {
+   constructor(props){
+        super(props);
         
-      </MainContainer>
-    );
+        this.state = {
+            inputValorMin:0,
+            inputValorMax:200,
+
+            inputNome:"",
+            inputCategoria:""
+        }
+    }
+
+    //functions
+
+    handleChange = (e) =>{
+
+        const name = e.target.name
+        const value = e.target.value
+        this.setState({
+            [name]:value
+        })
+    }
+
+
+    filtrarFilho = () =>{
+        this.props.filtroDoFilho(this.state.inputValorMin,this.state.inputValorMax)
+    }
+    
+    render(){
+        return (
+            <MainContainer>
+              <TituloContainer>
+                  <TituloTexto>Preço</TituloTexto>
+                  <TituloTexto>―</TituloTexto>
+              </TituloContainer>
+                  <FiltroContainer>
+                      <FiltroInputFalso>
+                      <LabelDeInputFalso>De:</LabelDeInputFalso>
+                      <LabelCifraInputFalso>R$</LabelCifraInputFalso>
+                      <FiltroInput    type="number" 
+                                      name="inputValorMin"
+                                      value={this.state.inputValorMin}
+                                      onChange={this.handleChange} 
+                      />
+                      </FiltroInputFalso>
+                      <FiltroInputFalso>
+                      <LabelDeInputFalso>Até:</LabelDeInputFalso>
+                      <LabelCifraInputFalso>R$</LabelCifraInputFalso>
+                      <FiltroInput    type="number" 
+                                      name="inputValorMax"
+                                      value={this.state.inputValorMax}
+                                      onChange={this.handleChange} 
+                      />
+                      </FiltroInputFalso>
+                       {/*  <RangeSlider  importaValores={this.inputControladoSlider} ></RangeSlider>
+              */} </FiltroContainer>
+                  <SubContainer>
+                      <StyledButton onClick={this.filtrarFilho} variant="contained" color="primary">Filtrar</StyledButton>
+                  </SubContainer>
+                   
+      
+                  <TituloContainer>
+                      <TituloTexto>Categoria</TituloTexto>
+                      <TituloTexto>―</TituloTexto>
+                  </TituloContainer>
+                  <FiltroContainer>
+                      <StyledButton variant="contained">Categoria 1</StyledButton>
+                      <StyledButton variant="contained">Categoria 1</StyledButton>
+                      <StyledButton variant="contained">Categoria 1</StyledButton>
+                  </FiltroContainer>
+      
+      
+      
+                  <TituloContainer>
+                      <TituloTexto>Buscar</TituloTexto>
+                      <TituloTexto>―</TituloTexto>
+                  </TituloContainer>
+                  <FiltroContainer>
+                      <FiltroInputFalso>
+                          <LabelDeInputFalso>Busca:</LabelDeInputFalso>
+                          <FiltroInput    /* type="text" 
+                                          name="filtro"
+                                          value={this.state.formControls.filtro.value}
+                                          onChange={this.controladorInputs} */
+                              />
+                      </FiltroInputFalso>
+                  </FiltroContainer>
+               
+              
+            </MainContainer>
+          );
+    }
+    
   }

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import ComponentLogin from './Components/ComponenteLogin'
+import ComponentLogin from './Components/ComponenteLogin/Index'
 import ComponenteFornecedor from './Components/ComponenteFornecedor/index'
 import ComponenteFiltro from './Components/ComponenteFiltro/index'
 import ComponenteLista from './Components/ComponenteLista/index'
@@ -73,10 +73,25 @@ class App extends React.Component {
 		console.log(this.state.arrayProdutos)
 	}
 
-	// componentDidMount() {
-	// 	this.pegarArrayProdutos()
-	// }
+  //filtros
 
+  filtrarProdutos = (valorMin,valorMax) =>{
+    const listaProdutosCopia = [...this.state.arrayProdutos]
+    let listaProdutosFiltrada = listaProdutosCopia.filter(cadaProduto =>{
+      return ((cadaProduto.price >= valorMin) && (cadaProduto.price <= valorMax))
+    })
+    
+    
+
+    
+
+    this.setState({
+        arrayProdutos:listaProdutosFiltrada
+    })
+
+  }
+
+	
 	/* renders */
 
 	render(){
@@ -109,7 +124,7 @@ class App extends React.Component {
 						exibirCarrinho={this.mostrarCarrinho}
 					/>
 					<SubContainerConsumidor>
-						<ComponenteFiltro />
+						<ComponenteFiltro  filtroDoFilho={this.filtrarProdutos}/>
 						<ComponenteLista listaProdutos={this.state.arrayProdutos} />
 						{this.state.mostraCarrinho && <ComponenteCarrinho />}
 					</SubContainerConsumidor>
