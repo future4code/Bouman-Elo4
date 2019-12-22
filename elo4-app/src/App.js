@@ -47,7 +47,8 @@ class App extends React.Component {
 		this.state = {
 			pageSelector: "", //"fornecedorPage"  //consumidorPage
 			mostraCarrinho: false,
-			arrayProdutos: [],
+      arrayProdutos: [],
+      arrayProdutosTotal:[],
 		}
 	}
 
@@ -69,30 +70,36 @@ class App extends React.Component {
 
 	pegarArrayProdutos = async () => {
 		const novoArr = await axios.get('https://us-central1-future-apis.cloudfunctions.net/elo4/products')
-		this.setState({ arrayProdutos: novoArr.data.products })
+    this.setState({ arrayProdutos: novoArr.data.products, 
+                    arrayProdutosTotal:novoArr.data.products})
+    
 		console.log(this.state.arrayProdutos)
 	}
 
   //filtros
 
-  filtrarProdutos = (valorMin,valorMax) =>{
-    const listaProdutosCopia = [...this.state.arrayProdutos]
+  filtrarProdutos = (valorMin,valorMax,categoria,nome) =>{
+    const listaProdutosCopia = [...this.state.arrayProdutosTotal]
     let listaProdutosFiltrada = listaProdutosCopia.filter(cadaProduto =>{
       return ((cadaProduto.price >= valorMin) && (cadaProduto.price <= valorMax))
     })
+    if (categoria !== "todos") {
+      listaProdutosFiltrada = listaProdutosFiltrada.filter(cadaProduto =>{
+        return (cadaProduto.category === categoria)
+      })
+    }
+    if (nome !== "") {
+      listaProdutosFiltrada = listaProdutosFiltrada.filter( cadaProduto => {
+          /* busca convertendo o campo de busca e o argumento para minúsculas */
+          /* [link: https://stackoverflow.com/questions/35248292/reactjs-tolowercase-is-not-a-function] */
+          return cadaProduto.name.toLocaleLowerCase().includes(nome.toLocaleLowerCase())
+    })}
     
-    
-
-    
-
     this.setState({
         arrayProdutos:listaProdutosFiltrada
     })
-
   }
 
-	
-	/* renders */
 
 	render(){
 		if (this.state.pageSelector === "") {
@@ -124,7 +131,7 @@ class App extends React.Component {
 						exibirCarrinho={this.mostrarCarrinho}
 					/>
 					<SubContainerConsumidor>
-						<ComponenteFiltro  filtroDoFilho={this.filtrarProdutos}/>
+						<ComponenteFiltro filtroDoFilho={this.filtrarProdutos}/>
 						<ComponenteLista listaProdutos={this.state.arrayProdutos} />
 						{this.state.mostraCarrinho && <ComponenteCarrinho />}
 					</SubContainerConsumidor>
