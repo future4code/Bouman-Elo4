@@ -90,7 +90,7 @@ const metodoPagamento = [
           select
           label="Categoria"
           value="Colar"
-         
+            
           
         >
           {categoria.map(option => (
