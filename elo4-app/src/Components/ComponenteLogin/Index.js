@@ -12,6 +12,10 @@ const MainContainer = styled.div`
    
 `;
 
+const SubContainer =styled.div`
+    margin-left:10px;
+`;
+
 const StyledButtonFornecedor = styled(Button)`
     margin-left: 2000px;
     color: red;
@@ -49,8 +53,12 @@ class LoginComponent extends Component {
 render(){
         return(
             <MainContainer>
-                <StyledButtonFornecedor /* variant="contained" color="primary" */  onClick={this.handleFuncaoFilhoFornecedor}>Fornecedor</StyledButtonFornecedor>
-                <StyledButtonFornecedor variant="contained" color="primary" onClick={this.handleFuncaoFilhoConsumidor}>Consumidor</StyledButtonFornecedor>
+                <SubContainer>
+                    <StyledButtonFornecedor  variant="contained" color="primary"   onClick={this.handleFuncaoFilhoFornecedor}>Fornecedor</StyledButtonFornecedor>
+                </SubContainer>
+                <SubContainer>
+                    <StyledButtonFornecedor variant="contained" color="primary" onClick={this.handleFuncaoFilhoConsumidor}>Consumidor</StyledButtonFornecedor>
+                </SubContainer>
             </MainContainer>
         )
     }
