@@ -3,25 +3,48 @@ import styled from 'styled-components';
 import ComponenteItemCarrinho from '../ComponenteItemCarrinho';
 
 const ContainerCarrinho = styled.div`
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    width: 350px;
-    align-items: flex-start;
-    padding: 10px;
+    border: 1px solid #878787;
+    width: 20%;
+    border-radius:5px;
+    margin:5px;
+    background-color:white;
 `
 
-const TituloCarrinho = styled.h2`
-    width: 100%;
-    text-align: center;
+const TituloContainer = styled.div`
+    background-color: #F9F8F8;
+    height: 30px;
+    justify-content:space-between;
+    display:flex;
+    align-items:center;
+    border-radius:5px;
+    padding:0 10px;
+    margin-bottom:10px;
+`;
+
+const TituloTexto = styled.p`
+    font-weight:bold; 
+    color:#878787; 
+`;
+
+const ConteudoContainer = styled.div`
+    margin: 5px;
+`
+
+const TextoTotal = styled.h3`
+    margin-top: 10px;
 `
 
 function ComponenteCarrinho() { 
     return (
         <ContainerCarrinho>
-            <TituloCarrinho>Carrinho</TituloCarrinho>
-            <ComponenteItemCarrinho />
-            <h3>Total: R$ 00.00</h3>
+            <TituloContainer>
+                <TituloTexto>Carrinho</TituloTexto>
+                <TituloTexto>―</TituloTexto>
+            </TituloContainer>
+            <ConteudoContainer>
+                <ComponenteItemCarrinho />
+                <TextoTotal>Total: R$ 00.00</TextoTotal>
+            </ConteudoContainer>
         </ContainerCarrinho>
     )
 };

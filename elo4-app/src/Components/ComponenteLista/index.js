@@ -2,7 +2,7 @@ import React from 'react';
 import BackImage from '../../img/background_img.jpg';
 import styled from 'styled-components';
 import ComponenteProduto from '../ComponenteProduto/index.js'
-import ComponenteSort from '../ComponenteSort/index'
+import ComponenteSort from '../ComponenteSort/Index'
 
 const ContainerLista = styled.div`
   display: grid;
@@ -16,6 +16,7 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 85%;
 `
 
 /**

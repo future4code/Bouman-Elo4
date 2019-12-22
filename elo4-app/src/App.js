@@ -2,17 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import ComponentLogin from './Components/ComponenteLogin'
-import ComponenteLista from './Components/ComponenteLista'
-import ComponenteCarrinho from './Components/ComponenteCarrinho/index.js'
 import ComponenteFornecedor from './Components/ComponenteFornecedor/index'
+import ComponenteFiltro from './Components/ComponenteFiltro/index'
+import ComponenteLista from './Components/ComponenteLista/index'
+import ComponenteCarrinho from './Components/ComponenteCarrinho/index'
 import 'typeface-roboto';
 import ComponenteHeader from './Components/ComponenteHeader/index'
 import './Style.css';
-import ComponentFiltro from './Components/ComponenteFiltro/index'
 
 /* paleta de cores: https://coolors.co/f29711-5ce1e6-2e86ab-a23b72-c73e1d */
-
-
 
 const MainContainer = styled.div`
 	display: flex;
@@ -29,12 +27,8 @@ const SubContainerLogin = styled.div`
  
 `;
 
-
 const SubContainerConsumidor = styled.div`
   display: flex;
-	justify-content:center;
-  align-items:center;
-  margin:0;
 `;
  
 const SubContainer = styled.div`
@@ -51,7 +45,8 @@ class App extends React.Component {
 		super(props);
 		
 		this.state = {
-			pageSelector: "" //"fornecedorPage"  //consumidorPage
+			pageSelector: "", //"fornecedorPage"  //consumidorPage
+			mostraCarrinho: false,
 		}
 	}
 
@@ -61,6 +56,11 @@ class App extends React.Component {
 			pageSelector: page
 		})
 		
+	}
+
+	mostrarCarrinho = () => {
+		const novoEstado = !this.state.mostraCarrinho
+		this.setState({ mostraCarrinho: novoEstado})
 	}
 
 	/* renders */
@@ -89,10 +89,15 @@ class App extends React.Component {
 		} else if (this.state.pageSelector === "consumidorPage") {
 			return (
 				<MainContainer>
-					<ComponenteHeader actualPage={this.state.pageSelector} transportePage={this.page} />
+					<ComponenteHeader
+						actualPage={this.state.pageSelector}
+						transportePage={this.page}
+						exibirCarrinho={this.mostrarCarrinho}
+					/>
 					<SubContainerConsumidor>
-            <ComponentFiltro></ComponentFiltro>
-						<ComponenteLista></ComponenteLista>
+						<ComponenteFiltro />
+						<ComponenteLista />
+						{this.state.mostraCarrinho && <ComponenteCarrinho />}
 					</SubContainerConsumidor>
 				</MainContainer>
 			);

@@ -9,9 +9,10 @@ import Button from '@material-ui/core/Button';
 
 const MainContainer =styled.div`
     border: 1px solid #878787;
-    width: 400px;
+    width: 15%;
+    /* width: 400px; */
     border-radius:5px;
-    height:108vh;
+    /* height:108vh; */
     margin:5px;
     background-color:white;
 `;
