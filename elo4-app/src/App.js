@@ -8,6 +8,7 @@ import ComponenteFornecedor from './Components/ComponenteFornecedor/index'
 import 'typeface-roboto';
 import ComponenteHeader from './Components/ComponenteHeader/index'
 import './Style.css';
+import ComponentFiltro from './Components/ComponenteFiltro/index'
 
 /* paleta de cores: https://coolors.co/f29711-5ce1e6-2e86ab-a23b72-c73e1d */
 
@@ -28,6 +29,13 @@ const SubContainerLogin = styled.div`
  
 `;
 
+
+const SubContainerConsumidor = styled.div`
+  display: flex;
+	justify-content:center;
+  align-items:center;
+  margin:0;
+`;
  
 const SubContainer = styled.div`
   display: flex;
@@ -82,9 +90,10 @@ class App extends React.Component {
 			return (
 				<MainContainer>
 					<ComponenteHeader actualPage={this.state.pageSelector} transportePage={this.page} />
-					<SubContainer>
+					<SubContainerConsumidor>
+            <ComponentFiltro></ComponentFiltro>
 						<ComponenteLista></ComponenteLista>
-					</SubContainer>
+					</SubContainerConsumidor>
 				</MainContainer>
 			);
 		} 
