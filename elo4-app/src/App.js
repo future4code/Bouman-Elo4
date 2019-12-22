@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 import ComponentLogin from './Components/ComponenteLogin/Index'
 import ComponenteLista from './Components/ComponenteLista'
+import ComponenteFornecedor from './Components/ComponenteFornecedor/index'
 import 'typeface-roboto';
 /* paleta de cores: https://coolors.co/f29711-5ce1e6-2e86ab-a23b72-c73e1d */
 
@@ -43,7 +44,7 @@ class App extends React.Component {
 		} else if (this.state.pageSelector === "fornecedorPage")  {
 			return (
 				<MainContainer>
-					fornecedor
+					<ComponenteFornecedor></ComponenteFornecedor>
 					{/* colocar componenteFornecedor */}
 				</MainContainer>
 			);
