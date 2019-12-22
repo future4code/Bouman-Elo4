@@ -18,10 +18,21 @@ const MainContainer = styled.div`
   flex-direction:column;
 `;
 
+const SubContainerLogin = styled.div`
+  display: flex;
+	justify-content:center;
+  align-items:center;
+  height:82vh;
+ 
+`;
+
+ 
 const SubContainer = styled.div`
   display: flex;
 	justify-content:center;
   align-items:center;
+  
+
 `;
 
 
@@ -49,9 +60,9 @@ class App extends React.Component {
 			return(
 				<MainContainer>
           <ComponentHeader></ComponentHeader>
-          <SubContainer>
+          <SubContainerLogin>
             <ComponentLogin transportePage={this.page}/>
-          </SubContainer>
+          </SubContainerLogin>
 				</MainContainer>
 			)
 		} else if (this.state.pageSelector === "fornecedorPage")  {

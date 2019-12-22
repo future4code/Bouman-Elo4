@@ -15,11 +15,12 @@ const HeaderElo = styled.div`
 `
 
 const LogoElo = styled.img`
-  height: 100px;
+  height: 15vh;
+  min-height:80px;
 `
 
 const HeaderItems = styled.div`
-  padding: 10px;
+  padding: 3vh;
   width: 180px;
   display: flex;
   justify-content: space-between;
