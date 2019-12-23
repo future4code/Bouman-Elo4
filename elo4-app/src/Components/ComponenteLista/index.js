@@ -23,7 +23,7 @@ const MainContainer = styled.div`
  * artigos para festas, objetos de decoração, bijuterias, produtos religiosos, enxovais e acessórios eco-friendly
  */
 
-const listaDeProdutos = [
+/* const listaDeProdutos = [ */
     // {
     //     nome: 'Lembrancinha',
     //     descricao: 'Lembrancinha para festa, kit com 10 unidades',
@@ -54,7 +54,7 @@ const listaDeProdutos = [
     //     parcelas: 3,
     // },
     
-    {
+    /* {
         nome: 'Anjinhos de pérolas',
         descricao: 'Anjinhos feitos de pérolas, kit com 5 unidades',
         preco: 15.00,
@@ -83,12 +83,14 @@ const listaDeProdutos = [
         foto: 'https://cdn.shopify.com/s/files/1/2474/8356/products/81013cm-jogo-americano-rattan-redondo-artesanal-acessorios-de-cozinha-pra-sonhar-shop-435850_2000x.jpg?v=1556014529',
         parcelas: 4,
     },
-]
+] */
 
 function ComponenteLista(props) {
+
+   
     return (
         <MainContainer>
-            <ComponenteSort />
+            <ComponenteSort organiza={(regra)=>{props.organizaProdutos(regra)}}/>
             <ContainerLista>
                 { props.listaProdutos.map((produto) => {
                     return (<ComponenteProduto dadoProduto={produto} />)
