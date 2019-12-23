@@ -58,6 +58,10 @@ const StyledButton =styled(Button)`
 
 function ComponenteHeader(props) {
 
+  
+    
+    
+
   const voltarParaHome = () =>{
     props.transportePage("")
   }
@@ -82,7 +86,7 @@ function ComponenteHeader(props) {
         <HeaderItems>
 
             <MuiThemeProvider theme={carrinhoTheme}>
-              <StyledBadge badgeContent={4} color="primary">
+              <StyledBadge badgeContent={props.quantidadeCarrinho} color="primary">
                 <StyledShoppingIcon onClick={paraExibirCarrinho} />
               </StyledBadge>
             </MuiThemeProvider>

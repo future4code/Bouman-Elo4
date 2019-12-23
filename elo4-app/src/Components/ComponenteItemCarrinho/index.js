@@ -57,23 +57,28 @@ class ComponenteItemCarrinho extends React.Component {
         this.setState({ inputQuantidade: novoValor })
     }
 
+    tranporteFilhoPai = () =>{
+        this.props.transportePai(this.props.itemCarrinho.id)
+        console.log("Click")
+    }
+
     render() {
         return (
             <ContainerItem>
                 <ContainerNome>
-                    <p>Nome Produto</p>
-                    <DeleteIcon />
+                    <p>{this.props.itemCarrinho.nome}</p>
+                    <DeleteIcon onClick={this.tranporteFilhoPai} />
                 </ContainerNome>
                 <DadosItem>
                     <ContainerQuantidade>
                         <RemoveCircle onClick={this.reduzirInputQuantidade} />
                         <InputQuantidade
-                            value={this.state.inputQuantidade}
+                            value={this.props.itemCarrinho.quantidade}
                             onChange={this.handleInputQuantidade}    
                         />
                         <AddCircle onClick={this.aumentarInputQuantidade} />
                     </ContainerQuantidade>
-                    <p>R$00.00</p>
+                    <p>R$ {parseFloat(this.props.itemCarrinho.preco*this.props.itemCarrinho.quantidade).toFixed(2)}</p>
                 </DadosItem>
             </ContainerItem>
         )
