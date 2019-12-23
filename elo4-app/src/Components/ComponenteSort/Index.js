@@ -30,19 +30,11 @@ class ComponenteSort extends React.Component {
         }
     }
 
-    controleFiltro = e => {
-        this.setState({
-          selectStatus: e.target.value
-        }, () => {
-            this.props.organizaProdutos(this.state.selectStatus)
-        });
-    }
-
     handleChange = (e) => {
         this.setState({ 
             ordem: e.target.value
         }, () => {
-            this.props.organiza(this.state.ordem)     
+            this.props.ordenarProdutos(this.state.ordem)     
         });
     }
 
@@ -54,6 +46,8 @@ class ComponenteSort extends React.Component {
                     <MenuItem value=""><em>None</em></MenuItem>
                     <MenuItem value="crescente">Crescente</MenuItem>
                     <MenuItem value="decrescente">Decrescente</MenuItem>
+                    <MenuItem value="a-z">A-Z</MenuItem>
+                    <MenuItem value="z-a">Z-A</MenuItem>
                 </StyledSelect>
             </SortContainer>
         )

@@ -29,7 +29,7 @@ function ComponenteLista(props) {
 
     return (
         <MainContainer>
-            <ComponenteSort organiza={(regra)=>{props.organizaProdutos(regra)}}/>
+            <ComponenteSort ordenarProdutos={props.organizaProdutos}/>
             <ContainerLista>
                 { props.listaProdutos.map((produto) => {
                     return (
