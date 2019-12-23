@@ -74,7 +74,6 @@ class App extends React.Component {
 	}
 
   	// filtros de produtos
-
 	filtrarProdutos = (valorMin, valorMax, categoria, nome) => {
 		const listaProdutosCopia = [...this.state.arrayProdutosTotal]
 		
@@ -100,24 +99,46 @@ class App extends React.Component {
 	//sort
 	sortProdutos = (regra) => {
 		let listaProdutosCopia = [...this.state.arrayProdutos]
+		let listaOrdenada
 
-		if (regra === "decrescente") {
-			listaProdutosCopia.sort(function(a,b) {
-				return ( 
-					parseFloat(a.price) > parseFloat(b.price) ? -1 : parseFloat(a.price) < parseFloat(b.price) ? 1 : 0
-				)  
-			})
-		} else if (regra === "crescente") {
-			listaProdutosCopia.sort(function(a,b) {
-				return (
-					parseFloat(a.price) < parseFloat(b.price) ? -1 : parseFloat(a.price) > parseFloat(b.price) ? 1 : 0
-				)
-			})
-		} else {
-			listaProdutosCopia = [...this.state.arrayProdutos]
+		switch (regra) {
+			case "decrescente":
+				listaOrdenada = listaProdutosCopia.sort(function(a,b) {
+					return ( 
+						parseFloat(a.price) > parseFloat(b.price) ? -1 : parseFloat(a.price) < parseFloat(b.price) ? 1 : 0
+					)
+				})
+				break;
+
+			case "crescente":
+				listaOrdenada = listaProdutosCopia.sort(function(a,b) {
+					return (
+						parseFloat(a.price) < parseFloat(b.price) ? -1 : parseFloat(a.price) > parseFloat(b.price) ? 1 : 0
+					)
+				})
+				break;
+
+			case "a-z":
+				listaOrdenada = listaProdutosCopia.sort(function(a,b) {
+					return (
+						a.name.toLowerCase() < b.name.toLowerCase() ? -1 : a.name.toLowerCase() > b.name.toLowerCase() ? 1 : 0
+					)
+				})
+				break;
+			case "z-a":
+				listaOrdenada = listaProdutosCopia.sort(function(a,b) {
+					return (
+						a.name.toLowerCase() > b.name.toLowerCase() ? -1 : a.name.toLowerCase() < b.name.toLowerCase() ? 1 : 0
+					)
+				})
+				break;
+
+			default:
+				listaOrdenada = listaProdutosCopia
+				break;
 		}
-		
-		this.setState({ arrayProdutos: listaProdutosCopia }) 
+
+		this.setState({ arrayProdutos: listaOrdenada }) 
 	}
 
 	// adicionar item no carrinho
