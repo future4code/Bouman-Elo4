@@ -35,7 +35,6 @@ const TextoTotal = styled.h3`
 `
 
 function ComponenteCarrinho(props) { 
-    
     return (
         <ContainerCarrinho>
             <TituloContainer>
@@ -46,9 +45,9 @@ function ComponenteCarrinho(props) {
                 {props.listaCarrinho.map(item =>{
                     return (
                         <ComponenteItemCarrinho
-                            transportePai={props.transporteVo}
+                            itemParaDeletar={props.deletarItem}
                             itemCarrinho={item}
-                            alteraQuantidade={props.alteraQuantidade}
+                            mudaQuantidade={props.alteraQuantidade}
                             key={item.id}
                         />
                     )

@@ -12,7 +12,7 @@ const carrinhoTheme = createMuiTheme({
       main: '#f29711'
     },
   }
-})
+});
 
 const HeaderElo = styled.div`
   background-color: #B4F1F3;
@@ -20,27 +20,26 @@ const HeaderElo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const LogoElo = styled.img`
   height: 15vh;
-  min-height:80px;
-`
+  min-height: 80px;
+`;
 
 const HeaderItems = styled.div`
-
   padding: 3vh;
   width: 180px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-`
+`;
 
 const StyledShoppingIcon = styled(ShoppingCartIcon)`
- && {
-  font-size:40px;
-  color: #f29711;
- }
+  && {
+    font-size: 40px;
+    color: #f29711;
+  }
 `;
 
 const StyledBadge = styled(Badge)`
@@ -50,26 +49,24 @@ const StyledBadge = styled(Badge)`
 `;
 
 const StyledButton =styled(Button)`
-&& {
-  background-color: #f29711;
-  margin-left: 50px;
-}
+  && {
+    background-color: #f29711;
+    margin-left: 50px;
+  }
 `;
 
 function ComponenteHeader(props) {
-
-  
-    
-    
-
-  const voltarParaHome = () =>{
+  // ao clicar para voltar para Home
+  const voltarParaHome = () => {
     props.transportePage("")
   }
 
+  // ao clicar para exibir carrinho
   const paraExibirCarrinho = () => {
     props.exibirCarrinho()
   }
 
+  // conteúdo do cabeçalho a ser exibido, conforme a página
   let exibicao
   switch (props.actualPage) {
     case 'fornecedorPage':
@@ -84,16 +81,14 @@ function ComponenteHeader(props) {
     case 'consumidorPage':
       exibicao = 
         <HeaderItems>
-
-            <MuiThemeProvider theme={carrinhoTheme}>
-              <StyledBadge badgeContent={props.quantidadeCarrinho} color="primary">
-                <StyledShoppingIcon onClick={paraExibirCarrinho} />
-              </StyledBadge>
-            </MuiThemeProvider>
+          <MuiThemeProvider theme={carrinhoTheme}>
+            <StyledBadge badgeContent={props.quantidadeCarrinho} color="primary">
+              <StyledShoppingIcon onClick={paraExibirCarrinho} />
+            </StyledBadge>
+          </MuiThemeProvider>
           <StyledButton size="large" variant="contained" color="primary" onClick={voltarParaHome}>
             Home
           </StyledButton>
-
         </HeaderItems>
       break;
   
@@ -101,6 +96,7 @@ function ComponenteHeader(props) {
       break;
   }
 
+  // return
   return (
       <HeaderElo>
           <LogoElo src={logo} />
