@@ -51,6 +51,7 @@ class App extends React.Component {
       arrayProdutosTotal:[],
 	  arrayCarrinho:[],
 	  totalCarrinho:0.00,
+	  quantidadeCarrinho:0
 		}
 	}
 
@@ -157,7 +158,8 @@ class App extends React.Component {
 		  }
 		  this.setState({ arrayCarrinho: arrayCarrinhoCopia,
 		  },()=>{
-			  this.atualizarPrecoTotal()
+			  this.atualizarPrecoTotal();
+			  this.calculoQuantidade();
 		  })
 		}
 		
@@ -169,13 +171,21 @@ class App extends React.Component {
 			}
 			this.setState({totalCarrinho: totalCarrinhoCopia})
 		}
-  
-
+		
+		calculoQuantidade = () =>{
+			let quantidadeCarrinhoCopia = 0
+			for (let i of this.state.arrayCarrinho){
+			  quantidadeCarrinhoCopia+=i.quantidade
+			}
+			this.setState({
+				quantidadeCarrinho:quantidadeCarrinhoCopia,
+			})
+			
+		}
 	render(){
 		if (this.state.pageSelector === "") {
 			return(
 				<MainContainer>
-
 					<ComponenteHeader actualPage={this.state.pageSelector} />
 					<SubContainerLogin>
 						<ComponentLogin transportePage={this.page}/>
@@ -199,6 +209,7 @@ class App extends React.Component {
 						actualPage={this.state.pageSelector}
 						transportePage={this.page}
 						exibirCarrinho={this.mostrarCarrinho}
+						quantidadeCarrinho={this.state.quantidadeCarrinho}
 					/>
 					<SubContainerConsumidor>
 						<ComponenteFiltro filtroDoFilho={this.filtrarProdutos}/>
