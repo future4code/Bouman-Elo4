@@ -126,7 +126,7 @@ class App extends React.Component {
 
   // add carrinho
     addCarrinho = (idProduto) =>{
-	debugger
+	
       const arrayCarrinhoCopia = [...this.state.arrayCarrinho]
       if (arrayCarrinhoCopia.length === 0){
         const indexItem = this.state.arrayProdutos.findIndex(produto =>{
@@ -182,6 +182,22 @@ class App extends React.Component {
 			})
 			
 		}
+
+		apagarProduto = (idProduto) =>{
+			const listaCarrinhoCopia = [...this.state.arrayCarrinho]
+			const indexARemover = listaCarrinhoCopia.findIndex(produto =>{
+				return produto.id === idProduto
+			})
+	
+			listaCarrinhoCopia.splice(indexARemover,1)
+	
+			this.setState({arrayCarrinho:listaCarrinhoCopia},() =>{
+				this.atualizarPrecoTotal()
+				this.calculoQuantidade();
+			})
+		}
+		
+
 	render(){
 		if (this.state.pageSelector === "") {
 			return(
@@ -213,8 +229,8 @@ class App extends React.Component {
 					/>
 					<SubContainerConsumidor>
 						<ComponenteFiltro filtroDoFilho={this.filtrarProdutos}/>
-						<ComponenteLista transporteCarrinhoVo={this.addCarrinho} organizaProdutos={this.sortProdutos} listaProdutos={this.state.arrayProdutos} />
-						{this.state.mostraCarrinho && <ComponenteCarrinho valorTotal={this.state.totalCarrinho} listaCarrinho={this.state.arrayCarrinho} />}
+						<ComponenteLista  transporteCarrinhoVo={this.addCarrinho} organizaProdutos={this.sortProdutos} listaProdutos={this.state.arrayProdutos} />
+						{this.state.mostraCarrinho && <ComponenteCarrinho transporteVo={this.apagarProduto} valorTotal={this.state.totalCarrinho} listaCarrinho={this.state.arrayCarrinho} />}
 					</SubContainerConsumidor>
 				</MainContainer>
 			);
