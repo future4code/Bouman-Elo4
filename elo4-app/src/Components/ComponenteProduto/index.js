@@ -30,13 +30,17 @@ const StyledButton = styled(Button)`
 function ComponenteProduto(props) {
     const precoProduto = parseFloat(props.dadoProduto.price).toFixed(2)
     const valorDaParcela = (parseFloat(props.dadoProduto.price) / parseFloat(props.dadoProduto.installments)).toFixed(2)
+    
+    const transporteCarrinho = () =>{
+        props.transporteCarrinhoPai(props.dadoProduto.id)
+    }
     return (
         <ContainerProduto>
             <ImgProduto src={props.dadoProduto.photos} />
             <TextoProduto>{props.dadoProduto.name}</TextoProduto>
             <TextoProduto>Preço: R${precoProduto}</TextoProduto>
             <TextoProduto>{props.dadoProduto.installments}x R${valorDaParcela} sem juros</TextoProduto>
-            <StyledButton variant="contained" color="default">
+            <StyledButton onClick={transporteCarrinho} variant="contained" color="default">
                 Adicionar ao carrinho
                 <ShoppingCartIcon />
             </StyledButton>

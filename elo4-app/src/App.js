@@ -49,6 +49,8 @@ class App extends React.Component {
 			mostraCarrinho: false,
       arrayProdutos: [],
       arrayProdutosTotal:[],
+	  arrayCarrinho:[],
+	  totalCarrinho:0.00,
 		}
 	}
 
@@ -102,7 +104,7 @@ class App extends React.Component {
   //sort
 
   sortProdutos = (regra) =>{
-    console.log("aloha")
+   
     let listaProdutosCopia = [...this.state.arrayProdutos]
 
     if(regra==="decrescente"){
@@ -120,6 +122,54 @@ class App extends React.Component {
       arrayProdutos:listaProdutosCopia
     }) 
   }
+
+  // add carrinho
+    addCarrinho = (idProduto) =>{
+	debugger
+      const arrayCarrinhoCopia = [...this.state.arrayCarrinho]
+      if (arrayCarrinhoCopia.length === 0){
+        const indexItem = this.state.arrayProdutos.findIndex(produto =>{
+          return produto.id === idProduto
+        })
+        const novoItemCarrinho = {
+          id: this.state.arrayProdutos[indexItem].id,
+          quantidade:1,
+          nome:this.state.arrayProdutos[indexItem].name,
+          preco:this.state.arrayProdutos[indexItem].price,
+        }
+      arrayCarrinhoCopia.push(novoItemCarrinho)
+      } else {
+        const indexDoItemCarrinho = arrayCarrinhoCopia.findIndex(produto =>{
+          return produto.id ===idProduto})
+          if (indexDoItemCarrinho>=0){
+            arrayCarrinhoCopia[indexDoItemCarrinho].quantidade +=1
+          } else {
+            const indexItem = this.state.arrayProdutos.findIndex(produto => {
+              return produto.id ===idProduto})
+			  const novoItemCarrinho = {
+				id: this.state.arrayProdutos[indexItem].id,
+				quantidade:1,
+				nome:this.state.arrayProdutos[indexItem].name,
+				preco:this.state.arrayProdutos[indexItem].price,
+			  }
+			arrayCarrinhoCopia.push(novoItemCarrinho)
+			}
+		  }
+		  this.setState({ arrayCarrinho: arrayCarrinhoCopia,
+		  },()=>{
+			  this.atualizarPrecoTotal()
+		  })
+		}
+		
+		atualizarPrecoTotal =() =>{
+			let totalCarrinhoCopia = 0
+			const listaCarrinhoCopia = [...this.state.arrayCarrinho]
+			for (const item of listaCarrinhoCopia){
+				totalCarrinhoCopia += item.preco*item.quantidade
+			}
+			this.setState({totalCarrinho: totalCarrinhoCopia})
+		}
+  
 
 	render(){
 		if (this.state.pageSelector === "") {
@@ -152,8 +202,8 @@ class App extends React.Component {
 					/>
 					<SubContainerConsumidor>
 						<ComponenteFiltro filtroDoFilho={this.filtrarProdutos}/>
-						<ComponenteLista organizaProdutos={this.sortProdutos} listaProdutos={this.state.arrayProdutos} />
-						{this.state.mostraCarrinho && <ComponenteCarrinho />}
+						<ComponenteLista transporteCarrinhoVo={this.addCarrinho} organizaProdutos={this.sortProdutos} listaProdutos={this.state.arrayProdutos} />
+						{this.state.mostraCarrinho && <ComponenteCarrinho valorTotal={this.state.totalCarrinho} listaCarrinho={this.state.arrayCarrinho} />}
 					</SubContainerConsumidor>
 				</MainContainer>
 			);

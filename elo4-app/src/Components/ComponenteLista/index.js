@@ -87,13 +87,15 @@ const MainContainer = styled.div`
 
 function ComponenteLista(props) {
 
-   
+    const transporteCarrinho =(id)=>{
+        props.transporteCarrinhoVo(id)
+    }
     return (
         <MainContainer>
             <ComponenteSort organiza={(regra)=>{props.organizaProdutos(regra)}}/>
             <ContainerLista>
                 { props.listaProdutos.map((produto) => {
-                    return (<ComponenteProduto dadoProduto={produto} />)
+                    return (<ComponenteProduto transporteCarrinhoPai={transporteCarrinho} dadoProduto={produto} />)
                 })}
             </ContainerLista>
         </MainContainer>
