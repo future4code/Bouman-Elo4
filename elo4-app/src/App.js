@@ -94,12 +94,32 @@ class App extends React.Component {
           /* [link: https://stackoverflow.com/questions/35248292/reactjs-tolowercase-is-not-a-function] */
           return cadaProduto.name.toLocaleLowerCase().includes(nome.toLocaleLowerCase())
     })}
-    
     this.setState({
         arrayProdutos:listaProdutosFiltrada
     })
   }
 
+  //sort
+
+  sortProdutos = (regra) =>{
+    console.log("aloha")
+    let listaProdutosCopia = [...this.state.arrayProdutos]
+
+    if(regra==="decrescente"){
+      listaProdutosCopia.sort(function(a,b){
+        return parseFloat(a.price) > parseFloat(b.price) ? -1 : parseFloat(a.price) < parseFloat(b.price) ? 1 : 0
+      })
+    } else if(regra==="crescente"){
+      listaProdutosCopia.sort(function(a,b){
+        return parseFloat(a.price) < parseFloat(b.price) ? -1 : parseFloat(a.price) > parseFloat(b.price) ? 1 : 0
+      })
+    } else{
+      listaProdutosCopia = [...this.state.arrayProdutos]
+    }
+    this.setState({
+      arrayProdutos:listaProdutosCopia
+    }) 
+  }
 
 	render(){
 		if (this.state.pageSelector === "") {
@@ -132,7 +152,7 @@ class App extends React.Component {
 					/>
 					<SubContainerConsumidor>
 						<ComponenteFiltro filtroDoFilho={this.filtrarProdutos}/>
-						<ComponenteLista listaProdutos={this.state.arrayProdutos} />
+						<ComponenteLista organizaProdutos={this.sortProdutos} listaProdutos={this.state.arrayProdutos} />
 						{this.state.mostraCarrinho && <ComponenteCarrinho />}
 					</SubContainerConsumidor>
 				</MainContainer>
