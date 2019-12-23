@@ -34,26 +34,28 @@ const ContainerNome = styled.div`
 `
 
 function ComponenteItemCarrinho(props) { 
-
+    // ao clicar para aumentar a quantidade de itens no carrinho
     const aumentarInputQuantidade = () => {
-        props.alteraQuantidade(props.itemCarrinho.id, 1)
+        props.mudaQuantidade(props.itemCarrinho.id, 1)
     }
 
+    // ao clicar para diminuir a quantidade de itens no carrinho
     const reduzirInputQuantidade = () => {
         if(props.itemCarrinho.quantidade > 1) {
-            props.alteraQuantidade(props.itemCarrinho.id, -1)
+            props.mudaQuantidade(props.itemCarrinho.id, -1)
         }
     }
 
-    const tranporteFilhoPai = () => {
-        props.transportePai(props.itemCarrinho.id)
+    // passagem do id do item a ser exluído do carrinho
+    const excluirItemCarrinho = () => {
+        props.itemParaDeletar(props.itemCarrinho.id)
     }
 
     return (
         <ContainerItem>
             <ContainerNome>
                 <p>{props.itemCarrinho.nome}</p>
-                <DeleteIcon onClick={tranporteFilhoPai} />
+                <DeleteIcon onClick={excluirItemCarrinho} />
             </ContainerNome>
             <DadosItem>
                 <ContainerQuantidade>

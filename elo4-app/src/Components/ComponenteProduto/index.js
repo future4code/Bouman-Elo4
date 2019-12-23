@@ -10,30 +10,31 @@ const ContainerProduto = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-`
+`;
 
 const ImgProduto = styled.img`
     width: 100%;
     height: 220px;
     margin: 0 0 5px 0;
-`
+`;
 
 const TextoProduto = styled.p`
     margin: 0 0 5px 0;
     color: #777777;
-`
+`;
 
 const StyledButton = styled(Button)`
     width: 100%;
-`
+`;
 
 function ComponenteProduto(props) {
     const precoProduto = parseFloat(props.dadoProduto.price).toFixed(2)
     const valorDaParcela = (parseFloat(props.dadoProduto.price) / parseFloat(props.dadoProduto.installments)).toFixed(2)
     
-    const transporteCarrinho = () =>{
+    const transporteCarrinho = () => {
         props.transporteCarrinhoPai(props.dadoProduto.id)
     }
+    
     return (
         <ContainerProduto>
             <ImgProduto src={props.dadoProduto.photos} />

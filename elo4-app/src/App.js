@@ -15,30 +15,25 @@ import './Style.css';
 const MainContainer = styled.div`
 	display: flex;
 	justify-content:center;
-  flex-direction:column;
-
+	flex-direction:column;
 `;
 
 const SubContainerLogin = styled.div`
-  display: flex;
+  	display: flex;
 	justify-content:center;
-  align-items:center;
-  height:82vh;
- 
+	align-items:center;
+	height:82vh;
 `;
 
 const SubContainerConsumidor = styled.div`
-  display: flex;
+	display: flex;
 `;
- 
+
 const SubContainer = styled.div`
-  display: flex;
+	display: flex;
 	justify-content:center;
-  align-items:center;
-  
-
+	align-items:center;
 `;
-
 
 class App extends React.Component {
 	constructor(props){
@@ -47,87 +42,97 @@ class App extends React.Component {
 		this.state = {
 			pageSelector: "", //"fornecedorPage"  //consumidorPage
 			mostraCarrinho: false,
-      arrayProdutos: [],
-      arrayProdutosTotal:[],
-	  arrayCarrinho:[],
-	  totalCarrinho:0.00,
-	  quantidadeCarrinho:0
+			arrayProdutos: [],
+			arrayProdutosTotal: [],
+			arrayCarrinho: [],
+			totalCarrinho: 0.00,
+			quantidadeCarrinho: 0
 		}
 	}
 
 	/* functions */
-	page =(page) =>{
-		this.setState({
-			pageSelector: page
-		})
+	page = (page) => {
+		this.setState({ pageSelector: page })
+		
 		if (page === 'consumidorPage') {
 			this.pegarArrayProdutos()
 		}
-		
 	}
 
 	mostrarCarrinho = () => {
 		const novoEstado = !this.state.mostraCarrinho
-		this.setState({ mostraCarrinho: novoEstado})
+		this.setState({ mostraCarrinho: novoEstado })
 	}
 
 	pegarArrayProdutos = async () => {
 		const novoArr = await axios.get('https://us-central1-future-apis.cloudfunctions.net/elo4/products')
-    this.setState({ arrayProdutos: novoArr.data.products, 
-                    arrayProdutosTotal:novoArr.data.products})
-    
-		console.log(this.state.arrayProdutos)
+		
+		this.setState({
+			arrayProdutos: novoArr.data.products, 
+			arrayProdutosTotal:novoArr.data.products
+		})
 	}
 
-  //filtros
+  	// filtros de produtos
 
-  filtrarProdutos = (valorMin,valorMax,categoria,nome) =>{
-    const listaProdutosCopia = [...this.state.arrayProdutosTotal]
-    let listaProdutosFiltrada = listaProdutosCopia.filter(cadaProduto =>{
-      return ((cadaProduto.price >= valorMin) && (cadaProduto.price <= valorMax))
-    })
-    if (categoria !== "todos") {
-      listaProdutosFiltrada = listaProdutosFiltrada.filter(cadaProduto =>{
-        return (cadaProduto.category === categoria)
-      })
-    }
-    if (nome !== "") {
-      listaProdutosFiltrada = listaProdutosFiltrada.filter( cadaProduto => {
-          /* busca convertendo o campo de busca e o argumento para minúsculas */
-          /* [link: https://stackoverflow.com/questions/35248292/reactjs-tolowercase-is-not-a-function] */
-          return cadaProduto.name.toLocaleLowerCase().includes(nome.toLocaleLowerCase())
-    })}
-    this.setState({
-        arrayProdutos:listaProdutosFiltrada
-    })
-  }
+	filtrarProdutos = (valorMin, valorMax, categoria, nome) => {
+		const listaProdutosCopia = [...this.state.arrayProdutosTotal]
+		
+		let listaProdutosFiltrada = listaProdutosCopia.filter(cadaProduto => {
+			return ((cadaProduto.price >= valorMin) && (cadaProduto.price <= valorMax))
+		})
+		
+		if (categoria !== "todos") {
+			listaProdutosFiltrada = listaProdutosFiltrada.filter(cadaProduto =>{
+				return (cadaProduto.category === categoria)
+			})
+		}
+		
+		if (nome !== "") {
+			listaProdutosFiltrada = listaProdutosFiltrada.filter( cadaProduto => {
+				return cadaProduto.name.toLocaleLowerCase().includes(nome.toLocaleLowerCase())
+			})
+		}
+		
+		this.setState({ arrayProdutos: listaProdutosFiltrada })
+	}
 
-  //sort
+	//sort
+	sortProdutos = (regra) => {
+		let listaProdutosCopia = [...this.state.arrayProdutos]
 
-  sortProdutos = (regra) =>{
-   
-    let listaProdutosCopia = [...this.state.arrayProdutos]
-
-    if(regra==="decrescente"){
-      listaProdutosCopia.sort(function(a,b){
-        return parseFloat(a.price) > parseFloat(b.price) ? -1 : parseFloat(a.price) < parseFloat(b.price) ? 1 : 0
-      })
-    } else if(regra==="crescente"){
-      listaProdutosCopia.sort(function(a,b){
-        return parseFloat(a.price) < parseFloat(b.price) ? -1 : parseFloat(a.price) > parseFloat(b.price) ? 1 : 0
-      })
-    } else{
-      listaProdutosCopia = [...this.state.arrayProdutos]
-    }
-    this.setState({
-      arrayProdutos:listaProdutosCopia
-    }) 
-  }
+		if (regra === "decrescente") {
+			listaProdutosCopia.sort(function(a,b) {
+				return ( 
+					parseFloat(a.price) > parseFloat(b.price) ? -1 : parseFloat(a.price) < parseFloat(b.price) ? 1 : 0
+				)  
+			})
+		} else if (regra === "crescente") {
+			listaProdutosCopia.sort(function(a,b) {
+				return (
+					parseFloat(a.price) < parseFloat(b.price) ? -1 : parseFloat(a.price) > parseFloat(b.price) ? 1 : 0
+				)
+			})
+		} else {
+			listaProdutosCopia = [...this.state.arrayProdutos]
+		}
+		
+		this.setState({ arrayProdutos: listaProdutosCopia }) 
+	}
 
 	// adicionar item no carrinho
     addCarrinho = (idProduto) => {
-	    const arrayCarrinhoCopia = [...this.state.arrayCarrinho]
-     	if (arrayCarrinhoCopia.length === 0) {
+		const arrayCarrinhoCopia = [...this.state.arrayCarrinho]
+		
+		// verifica se o item já está no carrinho e retorna o index do item no array do carrinho
+		const indexDoItemNoCarrinho = arrayCarrinhoCopia.findIndex( produto => {
+			return produto.id === idProduto
+		})
+
+		// se o carrinho não estiver vazio e o produto já existir no carrinho, altera apenas a quantidade do produto
+		if (arrayCarrinhoCopia.length !== 0 && indexDoItemNoCarrinho >= 0) {
+			arrayCarrinhoCopia[indexDoItemNoCarrinho].quantidade += 1
+		} else { // se o carrinho estiver vazio ou o produto ainda não constar no carrinho, é incluído o novo produto no carrinho
 			const indexItem = this.state.arrayProdutos.findIndex( produto => {
 				return produto.id === idProduto
 			})
@@ -140,34 +145,12 @@ class App extends React.Component {
 			}
 
 			arrayCarrinhoCopia.push(novoItemCarrinho)
-
-		} else {
-			const indexDoItemCarrinho = arrayCarrinhoCopia.findIndex( produto => {
-				return produto.id === idProduto
-			})
-			
-			if (indexDoItemCarrinho >= 0) {
-				arrayCarrinhoCopia[indexDoItemCarrinho].quantidade += 1
-			} else {
-				const indexItem = this.state.arrayProdutos.findIndex( produto => {
-					return produto.id === idProduto
-				})
-
-				const novoItemCarrinho = {
-					id: this.state.arrayProdutos[indexItem].id,
-					quantidade: 1,
-					nome: this.state.arrayProdutos[indexItem].name,
-					preco: this.state.arrayProdutos[indexItem].price,
-				}
-
-				arrayCarrinhoCopia.push(novoItemCarrinho)
-			}
 		}
 		
 		this.setState({ arrayCarrinho: arrayCarrinhoCopia }, 
 			()=>{
 				this.atualizarPrecoTotal();
-				this.calculoQuantidade();
+				this.calcularQuantidade();
 			})
 	}
 	
@@ -184,7 +167,7 @@ class App extends React.Component {
 	}
 	
 	// calcular quantidade de itens no carrinho
-	calculoQuantidade = () => {
+	calcularQuantidade = () => {
 		let quantidadeCarrinhoCopia = 0
 		
 		for (let i of this.state.arrayCarrinho) {
@@ -206,65 +189,81 @@ class App extends React.Component {
 		this.setState({ arrayCarrinho: listaCarrinhoCopia },
 			() => {
 				this.atualizarPrecoTotal();
-				this.calculoQuantidade();
-			})
+				this.calcularQuantidade();
+			}
+		)
 	}
 	
 	// alterar quantidade de itens no carrinho, utilizando os botões + e -
 	alterarQuantidadeItensCarrinho = (id, valor) => {
 		const arrayCarrinhoCopia = [...this.state.arrayCarrinho]
 		arrayCarrinhoCopia.forEach(item => {
-			if (item.id === id){
+			if (item.id === id) {
 				item.quantidade += valor
 			}
 		})
-		this.setState({ arrayCarrinho: arrayCarrinhoCopia})
+
+		this.setState({ arrayCarrinho: arrayCarrinhoCopia },
+			() => {
+				this.atualizarPrecoTotal();
+				this.calcularQuantidade();
+			}	
+		)
 	}
 
-	render(){
-		if (this.state.pageSelector === "") {
-			return(
-				<MainContainer>
-					<ComponenteHeader actualPage={this.state.pageSelector} />
+	render() {
+		// Conteúdo da página a ser exibido. Cabeçalho igual para todas as páginas.
+		let pageToRender
+		switch (this.state.pageSelector) {
+			case "":
+				pageToRender = 
 					<SubContainerLogin>
-						<ComponentLogin transportePage={this.page}/>
+						<ComponentLogin transportePage={this.page} />
 					</SubContainerLogin>
-
-				</MainContainer>
-			)
-		} else if (this.state.pageSelector === "fornecedorPage")  {
-			return (
-				<MainContainer>
-					<ComponenteHeader actualPage={this.state.pageSelector} transportePage={this.page} />
+				break;
+		
+			case "fornecedorPage":
+				pageToRender = 
 					<SubContainer>
-						<ComponenteFornecedor></ComponenteFornecedor>
+						<ComponenteFornecedor />
 					</SubContainer>
-				</MainContainer>
-			);
-		} else if (this.state.pageSelector === "consumidorPage") {
-			return (
-				<MainContainer>
-					<ComponenteHeader
-						actualPage={this.state.pageSelector}
-						transportePage={this.page}
-						exibirCarrinho={this.mostrarCarrinho}
-						quantidadeCarrinho={this.state.quantidadeCarrinho}
-					/>
+				break;
+		
+			case "consumidorPage":
+				pageToRender = 
 					<SubContainerConsumidor>
-						<ComponenteFiltro filtroDoFilho={this.filtrarProdutos}/>
-						<ComponenteLista  transporteCarrinhoVo={this.addCarrinho} organizaProdutos={this.sortProdutos} listaProdutos={this.state.arrayProdutos} />
+						<ComponenteFiltro filtroDoFilho={this.filtrarProdutos} />
+						<ComponenteLista 
+							transporteCarrinhoVo={this.addCarrinho}
+							organizaProdutos={this.sortProdutos}
+							listaProdutos={this.state.arrayProdutos}
+						/>
 						{this.state.mostraCarrinho &&
 							<ComponenteCarrinho
-								transporteVo={this.apagarProduto}
+								deletarItem={this.apagarProduto}
 								valorTotal={this.state.totalCarrinho}
 								listaCarrinho={this.state.arrayCarrinho}
 								alteraQuantidade={this.alterarQuantidadeItensCarrinho}
 							/>
 						}
 					</SubContainerConsumidor>
-				</MainContainer>
-			);
-		} 
+				break;
+		
+			default:
+				break;
+		}
+
+		return (
+			<MainContainer>
+				<ComponenteHeader
+					actualPage={this.state.pageSelector}
+					transportePage={this.page}
+					exibirCarrinho={this.mostrarCarrinho}
+					quantidadeCarrinho={this.state.quantidadeCarrinho}
+				/>
+				{pageToRender}
+			</MainContainer>
+		)
 	}
 
 }
