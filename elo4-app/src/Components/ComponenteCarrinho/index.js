@@ -34,11 +34,8 @@ const TextoTotal = styled.h3`
     margin-top: 10px;
 `
 
-
 function ComponenteCarrinho(props) { 
     
-   
-
     return (
         <ContainerCarrinho>
             <TituloContainer>
@@ -47,10 +44,16 @@ function ComponenteCarrinho(props) {
             </TituloContainer>
             <ConteudoContainer>
                 {props.listaCarrinho.map(item =>{
-                    return <ComponenteItemCarrinho transportePai={(idProduto) =>{props.transporteVo(idProduto)}} itemCarrinho={item}/>
+                    return (
+                        <ComponenteItemCarrinho
+                            transportePai={props.transporteVo}
+                            itemCarrinho={item}
+                            alteraQuantidade={props.alteraQuantidade}
+                            key={item.id}
+                        />
+                    )
                 })}
-                
-                <TextoTotal>Total: R$ {parseFloat(props.valorTotal).toFixed(2)}</TextoTotal>
+                <TextoTotal>Total: R${parseFloat(props.valorTotal).toFixed(2)}</TextoTotal>
             </ConteudoContainer>
         </ContainerCarrinho>
     )

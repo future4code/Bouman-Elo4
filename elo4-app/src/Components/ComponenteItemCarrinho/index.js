@@ -33,56 +33,42 @@ const ContainerNome = styled.div`
     align-items: center;
 `
 
-class ComponenteItemCarrinho extends React.Component { 
-    constructor(props) {
-        super(props)
-        this.state = {
-            inputQuantidade: 1,
+function ComponenteItemCarrinho(props) { 
+
+    const aumentarInputQuantidade = () => {
+        props.alteraQuantidade(props.itemCarrinho.id, 1)
+    }
+
+    const reduzirInputQuantidade = () => {
+        if(props.itemCarrinho.quantidade > 1) {
+            props.alteraQuantidade(props.itemCarrinho.id, -1)
         }
     }
 
-    handleInputQuantidade = (e) => {
-        this.setState({ inputQuantidade: e.target.value })
+    const tranporteFilhoPai = () => {
+        props.transportePai(props.itemCarrinho.id)
     }
 
-    reduzirInputQuantidade = () => {
-        if (this.state.inputQuantidade > 1) {
-            const novoValor = this.state.inputQuantidade - 1
-            this.setState({ inputQuantidade: novoValor })
-        }
-    }
-
-    aumentarInputQuantidade = () => {
-        const novoValor = this.state.inputQuantidade + 1
-        this.setState({ inputQuantidade: novoValor })
-    }
-
-    tranporteFilhoPai = () =>{
-        this.props.transportePai(this.props.itemCarrinho.id)
-        console.log("Click")
-    }
-
-    render() {
-        return (
-            <ContainerItem>
-                <ContainerNome>
-                    <p>{this.props.itemCarrinho.nome}</p>
-                    <DeleteIcon onClick={this.tranporteFilhoPai} />
-                </ContainerNome>
-                <DadosItem>
-                    <ContainerQuantidade>
-                        <RemoveCircle onClick={this.reduzirInputQuantidade} />
-                        <InputQuantidade
-                            value={this.props.itemCarrinho.quantidade}
-                            onChange={this.handleInputQuantidade}    
-                        />
-                        <AddCircle onClick={this.aumentarInputQuantidade} />
-                    </ContainerQuantidade>
-                    <p>R$ {parseFloat(this.props.itemCarrinho.preco*this.props.itemCarrinho.quantidade).toFixed(2)}</p>
-                </DadosItem>
-            </ContainerItem>
-        )
-    }
+    return (
+        <ContainerItem>
+            <ContainerNome>
+                <p>{props.itemCarrinho.nome}</p>
+                <DeleteIcon onClick={tranporteFilhoPai} />
+            </ContainerNome>
+            <DadosItem>
+                <ContainerQuantidade>
+                    <RemoveCircle onClick={reduzirInputQuantidade} />
+                    <InputQuantidade
+                        readOnly
+                        value={props.itemCarrinho.quantidade}
+                    />
+                    <AddCircle onClick={aumentarInputQuantidade} />
+                </ContainerQuantidade>
+                <p>R${parseFloat(props.itemCarrinho.preco*props.itemCarrinho.quantidade).toFixed(2)}</p>
+            </DadosItem>
+        </ContainerItem>
+    )
+    
 };
 
 export default ComponenteItemCarrinho;
